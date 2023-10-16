@@ -1,5 +1,7 @@
 package com.caio.rinha.api.services;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class PessoaService {
 
     public void savePessoa(Pessoa pessoa) {
         pessoaRepository.save(pessoa);
+    }
+
+    public Pessoa getPessoa(UUID id) {
+        return pessoaRepository.getReferenceById(id);
     }
 
 }
