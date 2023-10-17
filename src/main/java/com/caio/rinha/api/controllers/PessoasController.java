@@ -1,6 +1,8 @@
 package com.caio.rinha.api.controllers;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.caio.rinha.api.dtos.pessoa.PessoaCreateData;
@@ -38,9 +41,20 @@ public class PessoasController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> detailPessoa(@PathVariable UUID id) {
-        Pessoa pessoa = pessoaService.getPessoa(id);
-        PessoaData body = new PessoaData(pessoa);
+        Pessoa pessoa = pessoaService.getPessoaById(id);
 
+        PessoaData body = new PessoaData(pessoa);
+        return ResponseEntity.ok(body);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> searchPessoa(@RequestParam String t) {
+        Optional<List<Pessoa>> pessoas = pessoaService.getPessoasByWord(t);
+
+        if (pessoas.isEmpty())
+            return ResponseEntity.ok(null);
+
+        List<PessoaData> body = pessoas.get().stream().map(PessoaData::new).limit(50).toList();
         return ResponseEntity.ok(body);
     }
 

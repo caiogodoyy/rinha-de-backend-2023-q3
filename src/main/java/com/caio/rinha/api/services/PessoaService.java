@@ -1,5 +1,7 @@
 package com.caio.rinha.api.services;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,12 @@ public class PessoaService {
         pessoaRepository.save(pessoa);
     }
 
-    public Pessoa getPessoa(UUID id) {
+    public Pessoa getPessoaById(UUID id) {
         return pessoaRepository.getReferenceById(id);
+    }
+
+    public Optional<List<Pessoa>> getPessoasByWord(String t) {
+        return pessoaRepository.findByWord(t);
     }
 
 }
