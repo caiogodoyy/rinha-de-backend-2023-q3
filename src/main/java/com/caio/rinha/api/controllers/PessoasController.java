@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,14 +23,13 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/pessoas")
 public class PessoasController {
 
     @Autowired
     private PessoaService pessoaService;
     
-    @PostMapping
     @Transactional
+    @PostMapping("/pessoas")
     public ResponseEntity<?> createPessoa(@RequestBody @Valid PessoaCreateData data) {
         Pessoa pessoa = new Pessoa(data);
         pessoaService.savePessoa(pessoa);
@@ -39,7 +37,7 @@ public class PessoasController {
         return ResponseEntity.created(URI.create("/pessoas/" + pessoa.getId())).body(null);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("pessoas/{id}")
     public ResponseEntity<?> detailPessoa(@PathVariable UUID id) {
         Pessoa pessoa = pessoaService.getPessoaById(id);
 
@@ -47,15 +45,20 @@ public class PessoasController {
         return ResponseEntity.ok(body);
     }
 
-    @GetMapping
-    public ResponseEntity<?> searchPessoa(@RequestParam String t) {
+    @GetMapping("/pessoas")
+    public ResponseEntity<?> searchPessoas(@RequestParam String t) {
         Optional<List<Pessoa>> pessoas = pessoaService.getPessoasByWord(t);
 
         if (pessoas.isEmpty())
             return ResponseEntity.ok(null);
 
-        List<PessoaData> body = pessoas.get().stream().map(PessoaData::new).limit(50).toList();
+        List<PessoaData> body = pessoas.get().stream().map(PessoaData::new).toList();
         return ResponseEntity.ok(body);
+    }
+
+    @GetMapping("/contagem-pessoas")
+    public ResponseEntity<?> countPessoas() {
+        return ResponseEntity.ok(pessoaService.countPessoas());
     }
 
 }

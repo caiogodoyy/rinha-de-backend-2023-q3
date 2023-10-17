@@ -28,4 +28,8 @@ public class PessoaService {
         return pessoaRepository.findByWord(t);
     }
 
+    public long countPessoas() {
+        return pessoaRepository.count();
+    }
+
 }

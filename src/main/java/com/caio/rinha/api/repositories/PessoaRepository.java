@@ -12,10 +12,10 @@ import com.caio.rinha.api.entities.Pessoa;
 public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
 
     @Query("""
-        SELECT p FROM Pessoa p
-        WHERE p.apelido LIKE :word OR
-        p.nome LIKE :word OR
-        EXISTS (SELECT 1 FROM UNNEST(p.stack) AS s WHERE s LIKE :word)
+        select p from Pessoa p where 
+        p.apelido = :word or 
+        p.nome = :word or 
+        :word = any(p.stack)
     """)
     public Optional<List<Pessoa>> findByWord(String word);
 
