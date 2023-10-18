@@ -24,8 +24,8 @@ public class PessoaService {
         return pessoaRepository.getReferenceById(id);
     }
 
-    public Optional<List<Pessoa>> getPessoasByWord(String t) {
-        return pessoaRepository.findByWord(t);
+    public Optional<List<Pessoa>> getPessoasByTerm(String t) {
+        return pessoaRepository.findByTerm(t);
     }
 
     public long countPessoas() {

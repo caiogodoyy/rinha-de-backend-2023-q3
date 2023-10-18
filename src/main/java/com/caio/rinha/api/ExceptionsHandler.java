@@ -6,6 +6,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @RestControllerAdvice
 public class ExceptionsHandler {
     
@@ -17,6 +19,11 @@ public class ExceptionsHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleSyntaxExceptions(Exception e) {
         return ResponseEntity.badRequest().body("Invalid input detected...\n" + e.getMessage());
+    }
+    
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<?> handleEntityNotFoundExceptions(Exception e) {
+        return ResponseEntity.notFound().build();
     }
 
 }

@@ -47,10 +47,13 @@ public class PessoasController {
 
     @GetMapping("/pessoas")
     public ResponseEntity<?> searchPessoas(@RequestParam String t) {
-        Optional<List<Pessoa>> pessoas = pessoaService.getPessoasByWord(t);
+        if (t.isEmpty())
+            return ResponseEntity.badRequest().body("The search term cannot be empty...\nPlease provide a valid value for the 't' parameter.");
+
+        Optional<List<Pessoa>> pessoas = pessoaService.getPessoasByTerm(t);
 
         if (pessoas.get().isEmpty())
-            return ResponseEntity.ok(null);
+            return ResponseEntity.ok(pessoas);
 
         List<PessoaData> body = pessoas.get().stream().map(PessoaData::new).toList();
         return ResponseEntity.ok(body);

@@ -9,6 +9,6 @@ import com.caio.rinha.api.entities.Pessoa;
 
 public record PessoaData(UUID id, String apelido, String nome, LocalDate nascimento, List<String> stack) {
     public PessoaData(Pessoa pessoa) {
-        this(pessoa.getId(), pessoa.getApelido(), pessoa.getNome(), pessoa.getNascimento(), Arrays.asList(pessoa.getStack().split("\\|")));
+        this(pessoa.getId(), pessoa.getApelido(), pessoa.getNome(), pessoa.getNascimento(), ((pessoa.getStack() != null) ? Arrays.asList(pessoa.getStack().split("\\|")) : null));
     }
 }
