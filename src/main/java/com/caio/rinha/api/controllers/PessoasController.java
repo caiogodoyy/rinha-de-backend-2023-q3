@@ -49,7 +49,7 @@ public class PessoasController {
     public ResponseEntity<?> searchPessoas(@RequestParam String t) {
         Optional<List<Pessoa>> pessoas = pessoaService.getPessoasByWord(t);
 
-        if (pessoas.isEmpty())
+        if (pessoas.get().isEmpty())
             return ResponseEntity.ok(null);
 
         List<PessoaData> body = pessoas.get().stream().map(PessoaData::new).toList();

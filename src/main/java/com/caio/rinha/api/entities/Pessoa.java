@@ -1,7 +1,6 @@
 package com.caio.rinha.api.entities;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 import com.caio.rinha.api.dtos.pessoa.PessoaCreateData;
@@ -25,14 +24,14 @@ public class Pessoa {
     private String apelido;
     private String nome;
     private LocalDate nascimento;
-    private List<String> stack;
+    private String stack;
 
     public Pessoa(PessoaCreateData data) {
         this.id = UUID.randomUUID();
         this.apelido = data.apelido();
         this.nome = data.nome();
         this.nascimento = data.nascimento();
-        this.stack = data.stack();
+        this.stack = String.join("|", data.stack());
     }
     
 }
