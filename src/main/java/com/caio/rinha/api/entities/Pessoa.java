@@ -31,7 +31,8 @@ public class Pessoa {
         this.apelido = data.apelido();
         this.nome = data.nome();
         this.nascimento = data.nascimento();
-        this.stack = String.join("|", data.stack());
+        if (data.stack() != null)
+            this.stack = String.join("|", data.stack());
     }
     
 }
