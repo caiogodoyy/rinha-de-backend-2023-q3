@@ -25,7 +25,8 @@ public class PessoaService {
     }
 
     public Optional<List<Pessoa>> getPessoasByTerm(String t) {
-        return pessoaRepository.findByTerm(t);
+        String term = t.toLowerCase();
+        return pessoaRepository.findByTerm(term);
     }
 
     public long countPessoas() {

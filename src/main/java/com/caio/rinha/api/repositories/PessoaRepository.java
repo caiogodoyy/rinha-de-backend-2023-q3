@@ -11,12 +11,11 @@ import com.caio.rinha.api.entities.Pessoa;
 
 public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
 
-    @Query("""
-        select p from Pessoa p 
-        where lower(p.apelido) like lower(:term) 
-        or lower(p.nome) like lower(concat('%', :term, '%'))
-        or lower(p.stack) like lower(concat('%', :term, '%'))
-    """)
-    public Optional<List<Pessoa>> findByTerm(String term);    
+    @Query(value = """
+        SELECT * FROM pessoas p 
+        WHERE p.search_term LIKE CONCAT('%', :term, '%')
+        LIMIT 50
+    """, nativeQuery = true)
+    public Optional<List<Pessoa>> findByTerm(String term);
 
 }

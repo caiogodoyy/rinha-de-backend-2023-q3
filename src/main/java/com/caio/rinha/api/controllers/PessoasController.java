@@ -34,7 +34,7 @@ public class PessoasController {
         Pessoa pessoa = new Pessoa(data);
         pessoaService.savePessoa(pessoa);
 
-        return ResponseEntity.created(URI.create("/pessoas/" + pessoa.getId())).body(null);
+        return ResponseEntity.created(URI.create("/pessoas/" + pessoa.getId())).build();
     }
 
     @GetMapping("pessoas/{id}")
