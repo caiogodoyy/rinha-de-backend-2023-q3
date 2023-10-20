@@ -1,4 +1,4 @@
-# Minha entrega para a Rinha de Backend - Att. [zanfranceschi](https://github.com/zanfranceschi/rinha-de-backend-2023-q3)
+# Minha entrega para a Rinha de Backend Edição 2023 Q3
 
 ## Instruções e Regras para Rinha de Backend - Edição 2023 Q3
 
@@ -228,3 +228,7 @@ Como mencionado, o teste será executado com duas instâncias de sua API. Além 
 
 ### Database
 Como já mencionado no início do documento, você poderá optar por usar Postgres, MySQL, ou MongoDB. Fica a seu critério :)
+
+#
+
+Creditos: [zanfranceschi](https://github.com/zanfranceschi/rinha-de-backend-2023-q3)
